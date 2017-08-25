@@ -161,6 +161,7 @@ class ExtensionHelper
 		array('plugin', 'module', 'editors-xtd', 0),
 		array('plugin', 'pagebreak', 'editors-xtd', 0),
 		array('plugin', 'readmore', 'editors-xtd', 0),
+		array('plugin', 'showdiff', 'editors-xtd', 0),
 
 		// Core plugin extensions - extension
 		array('plugin', 'joomla', 'extension', 0),
