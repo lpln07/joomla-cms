@@ -9,8 +9,8 @@
 
 defined('_JEXEC') or die;
 use \Joomla\CMS\MVC\Model\BaseModel;
-//use \Joomla\CMS\Helper\ContentHistoryHelper;
 JLoader::register('ContenthistoryHelper', JPATH_ADMINISTRATOR . '/components/com_contenthistory/helpers/contenthistory.php');
+
 /**
  * Editor showdiff button
  *
@@ -29,7 +29,7 @@ class PlgButtonShowdiff extends JPlugin
 	/**
 	 * Display the button
 	 *
-	 * @param   string  $name  The name of the button to add
+	 * @param   string $name The name of the button to add
 	 *
 	 * @return  JObject  The button options as JObject
 	 *
@@ -38,28 +38,30 @@ class PlgButtonShowdiff extends JPlugin
 	public function onDisplay($name)
 	{
 		$input = JFactory::getApplication()->input;
-		$itemId= $input->get('id');
-		
+		$itemId = $input->get('id');
 		$user = JFactory::getUser();
 
 		if ($user->authorise('core.create', 'com_content')
 			|| $user->authorise('core.edit', 'com_content')
 			|| $user->authorise('core.edit.own', 'com_content'))
 		{
-			JFactory::getDocument()->addScriptOptions('xtd-showdiff', array('editor' => $name));
+			if (JUri::getInstance($_SERVER['HTTP_REFERER'])->getVar('option') === 'com_associations')
+			{
+				JFactory::getDocument()->addScriptOptions('xtd-showdiff', array('editor' => $name));
 
-			$link = 'index.php?option=com_content&amp;view=article&amp;layout=showdiff&amp;tmpl=component&amp;e_name=' . $name . '&amp;id=' . $itemId;
+				$link = 'index.php?option=com_content&amp;view=article&amp;layout=showdiff&amp;tmpl=component&amp;e_name='
+					. $name . '&amp;id=' . $itemId;
 
-			$button          = new JObject;
-			$button->modal   = true;
-			$button->class   = 'btn';
-			$button->link    = $link;
-			$button->text    = JText::_('PLG_EDITORSXTD_SHOWDIFF_BUTTON_SHOWDIFF');
-			$button->name    = 'showdiff';
-			$button->options = "{handler: 'iframe', size: {x: 500, y: 300}}";
+				$button          = new JObject;
+				$button->modal   = true;
+				$button->class   = 'btn';
+				$button->link    = $link;
+				$button->text    = JText::_('PLG_EDITORSXTD_SHOWDIFF_BUTTON_SHOWDIFF');
+				$button->name    = 'shuffle';
+				$button->options = "{handler: 'iframe', size: {x: 500, y: 300}}";
 
-			return $button;
+				return $button;
+			}
 		}
 	}
-
 }
