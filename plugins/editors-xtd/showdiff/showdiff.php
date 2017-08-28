@@ -8,7 +8,9 @@
  */
 
 defined('_JEXEC') or die;
-
+use \Joomla\CMS\MVC\Model\BaseModel;
+//use \Joomla\CMS\Helper\ContentHistoryHelper;
+JLoader::register('ContenthistoryHelper', JPATH_ADMINISTRATOR . '/components/com_contenthistory/helpers/contenthistory.php');
 /**
  * Editor showdiff button
  *
@@ -35,6 +37,24 @@ class PlgButtonShowdiff extends JPlugin
 	 */
 	public function onDisplay($name)
 	{
+		$input = JFactory::getApplication()->input;
+		BaseModel::addIncludePath(JPATH_ADMINISTRATOR . '/' . 'components' . '/' . 'com_contenthistory' . '/' . 'models');
+		/** @var ContenthistoryModelHistory $contentHistory */
+		$contentHistory= BaseModel::getInstance('History', 'ContenthistoryModel');
+		$itemId = $contentHistory->getState('item_id', $input->get('id'));
+		$typeId = $contentHistory->getState('type_id', 5);
+		if($itemId === 0){
+			$itemId= $input->get('id');
+		}
+		if($typeId === 0){
+			$typeId = 1;
+		}
+		$contentHistory->setState('item_id', $itemId);
+		$contentHistory->setState('type_id', $typeId);
+		$dbobject =$contentHistory->getItems()[1];
+		$object = new stdClass;
+		$object = ContenthistoryHelper::decodeFields($dbobject->version_data);
+
 		$user = JFactory::getUser();
 
 		if ($user->authorise('core.create', 'com_content')
@@ -56,4 +76,5 @@ class PlgButtonShowdiff extends JPlugin
 			return $button;
 		}
 	}
+
 }
