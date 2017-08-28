@@ -9,12 +9,17 @@
  */
 
 dmp = new diff_match_patch();
-text1 = "Hallo Welt";
-text2 = "Hallo Welt das ist neu";
+text1 = "Hallo Welt Baum";
+text2 = " Welt das ist neu";
+var innerHTML = '';
+var innerHTML2 = '';
 
 diff_text = dmp.diff_main(text1, text2);
-diff_text = make_pretty_diff(diff_text);
-document.getElementById("diff_area").innerHTML = diff_text;
+diff_text.forEach( function(elem){
+    innerHTML2 += elem;
+   innerHTML += make_pretty_diff(elem);
+});
+document.getElementById("diff_area").innerHTML = innerHTML;
 
 function make_pretty_diff(diff) {
     var data, html, operation, pattern_amp, pattern_gt, pattern_lt, pattern_para, text;
