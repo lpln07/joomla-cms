@@ -10,7 +10,7 @@
 
 dmp = new diff_match_patch();
 text1 = "Hallo Welt Baum";
-text2 = " Welt das ist neu";
+text2 = Joomla.editors.instances['jform_articletext'].instance.getContent();;
 var innerHTML = '';
 var innerHTML2 = '';
 
