@@ -13,28 +13,24 @@ JHtml::_('behavior.core');
 JHtml::_('behavior.polyfill', array('event'), 'lt IE 9');
 JHtml::_('script', 'com_content/admin-article-showdiff.min.js', array('version' => 'auto', 'relative' => true));
 
+JHtml::_('script', 'com_contenthistory/show_diff.js', array('version' => 'auto', 'relative' => true));
+$temp = JHtml::_('stylesheet', 'com_contenthistory/jquery.pretty-text-diff.css', array('version' => 'auto', 'relative' => true));
+
+$path = JURI::root(true). "/media/com_contenthistory/js/show_diff.js";
+$path2 = JURI::root(true). "/media/com_contenthistory/js/diff_match_patch.js";
+
 $document    = JFactory::getDocument();
 $this->eName = JFactory::getApplication()->input->getCmd('e_name', '');
 $this->eName = preg_replace('#[^A-Z0-9\-\_\[\]]#i', '', $this->eName);
 
 $document->setTitle(JText::_('COM_CONTENT_PAGEBREAK_DOC_TITLE'));
+
+
+
 ?>
-<div class="container-popup">
-	<form class="form-horizontal">
-
-		<div class="control-group">
-			<label for="title" class="control-label"><?php echo JText::_('COM_CONTENT_PAGEBREAK_TITLE'); ?></label>
-			<div class="controls"><input type="text" id="title" name="title" /></div>
-		</div>
-
-		<div class="control-group">
-			<label for="alias" class="control-label"><?php echo JText::_('COM_CONTENT_PAGEBREAK_TOC'); ?></label>
-			<div class="controls"><input type="text" id="alt" name="alt" /></div>
-		</div>
-
-		<button onclick="insertPagebreak('<?php echo $this->eName; ?>');" class="btn btn-success pull-right">
-			<?php echo JText::_('COM_CONTENT_PAGEBREAK_INSERT_BUTTON'); ?>
-		</button>
-
-	</form>
+<script type="text/javascript" src="<?=$path2?>"></script>
+<div id="diff_area" class="container-popup" style="height: auto">
 </div>
+<script type="text/javascript" src="<?=$path?>"></script>
+
+
