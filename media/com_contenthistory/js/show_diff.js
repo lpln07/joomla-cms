@@ -7,19 +7,24 @@
 
  Modified to show with and without HTML: Mark Dexter, Joomla Project.
  */
+jQuery(document).ready(function(){
+        var dmp = new diff_match_patch();
+        var text1 = document.getElementById("diff_area").innerHTML;
+        var text2 = Joomla.editors.instances['jform_articletext'].instance.getContent();
 
-dmp = new diff_match_patch();
-text1 = document.getElementById("diff_area").innerHTML;
-text2 = Joomla.editors.instances['jform_articletext'].instance.getContent();
-var innerHTML = '';
-var innerHTML2 = '';
+        var innerHTML = '';
+        var innerHTML2 = '';
 
-diff_text = dmp.diff_main(text1, text2);
-diff_text.forEach( function(elem){
-    innerHTML2 += elem;
-   innerHTML += make_pretty_diff(elem);
-});
-document.getElementById("diff_area").innerHTML = innerHTML;
+        diff_text = dmp.diff_main(text1, text2);
+        diff_text.forEach( function(elem){
+            innerHTML2 += elem;
+            innerHTML += make_pretty_diff(elem);
+        });
+        document.getElementById("diff_area").innerHTML = innerHTML;
+    }
+    );
+
+
 
 function make_pretty_diff(diff) {
     var data, html, operation, pattern_amp, pattern_gt, pattern_lt, pattern_para, text;

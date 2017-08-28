@@ -15,8 +15,10 @@ JHtml::_('behavior.core');
 JHtml::_('behavior.polyfill', array('event'), 'lt IE 9');
 JHtml::_('script', 'com_content/admin-article-showdiff.min.js', array('version' => 'auto', 'relative' => true));
 
+
+JHtml::_('script', 'com_contenthistory/diff_match_patch.js', array('version' => 'auto', 'relative' => true));
+JHtml::_('stylesheet', 'com_contenthistory/jquery.pretty-text-diff.css', array('version' => 'auto', 'relative' => true));
 JHtml::_('script', 'com_contenthistory/show_diff.js', array('version' => 'auto', 'relative' => true));
-$temp = JHtml::_('stylesheet', 'com_contenthistory/jquery.pretty-text-diff.css', array('version' => 'auto', 'relative' => true));
 
 $path = JURI::root(true). "/media/com_contenthistory/js/show_diff.js";
 $path2 = JURI::root(true). "/media/com_contenthistory/js/diff_match_patch.js";
@@ -41,15 +43,13 @@ if($typeId === 0){
 }
 $contentHistory->setState('item_id', $itemId);
 $contentHistory->setState('type_id', $typeId);
-$dbobject =$contentHistory->getItems()[1];
-$object = new stdClass;
+$dbobject = $contentHistory->getItems()[1];
 $object = ContenthistoryHelper::decodeFields($dbobject->version_data);
 
-
 ?>
-<script type="text/javascript" src="<?=$path2?>"></script>
+
 <div id="diff_area" class="container-popup" style="height: auto"><?php echo $object->introtext ?>
 </div>
-<script type="text/javascript" src="<?=$path?>"></script>
+
 
 
