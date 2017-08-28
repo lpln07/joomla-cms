@@ -146,6 +146,7 @@ class ExtensionHelper
 		array('plugin', 'pagebreak', 'content', 0),
 		array('plugin', 'pagenavigation', 'content', 0),
 		array('plugin', 'vote', 'content', 0),
+        array('plugin', 'showdiff', 'content', 0),
 
 		// Core plugin extensions - editors
 		array('plugin', 'codemirror', 'editors', 0),
@@ -161,8 +162,10 @@ class ExtensionHelper
 		array('plugin', 'module', 'editors-xtd', 0),
 		array('plugin', 'pagebreak', 'editors-xtd', 0),
 		array('plugin', 'readmore', 'editors-xtd', 0),
+        array('plugin', 'showdiff', 'editors-xtd', 0),
 
-		// Core plugin extensions - extension
+
+        // Core plugin extensions - extension
 		array('plugin', 'joomla', 'extension', 0),
 
 		// Core plugin extensions - fields

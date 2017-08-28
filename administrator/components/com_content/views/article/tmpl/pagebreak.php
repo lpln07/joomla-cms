@@ -17,24 +17,8 @@ $document    = JFactory::getDocument();
 $this->eName = JFactory::getApplication()->input->getCmd('e_name', '');
 $this->eName = preg_replace('#[^A-Z0-9\-\_\[\]]#i', '', $this->eName);
 
-$document->setTitle(JText::_('COM_CONTENT_PAGEBREAK_DOC_TITLE'));
+$document->setTitle("Hallo Welt");
 ?>
-<div class="container-popup">
-	<form class="form-horizontal">
-
-		<div class="control-group">
-			<label for="title" class="control-label"><?php echo JText::_('COM_CONTENT_PAGEBREAK_TITLE'); ?></label>
-			<div class="controls"><input type="text" id="title" name="title" /></div>
-		</div>
-
-		<div class="control-group">
-			<label for="alias" class="control-label"><?php echo JText::_('COM_CONTENT_PAGEBREAK_TOC'); ?></label>
-			<div class="controls"><input type="text" id="alt" name="alt" /></div>
-		</div>
-
-		<button onclick="insertPagebreak('<?php echo $this->eName; ?>');" class="btn btn-success pull-right">
-			<?php echo JText::_('COM_CONTENT_PAGEBREAK_INSERT_BUTTON'); ?>
-		</button>
-
-	</form>
+<div class="container-popup" style="width: auto">
+	<textarea id="diff_text">Hallo Welt</textarea>
 </div>

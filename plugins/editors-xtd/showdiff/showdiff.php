@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     Joomla.Plugin
- * @subpackage  Editors-xtd.pagebreak
+ * @subpackage  Editors-xtd.showdiff
  *
  * @copyright   Copyright (C) 2005 - 2017 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
  *
  * @since  1.5
  */
-class PlgButtonPagebreak extends JPlugin
+class PlgButtonShowdiff extends JPlugin
 {
 	/**
 	 * Load the language file on instantiation.
@@ -41,15 +41,14 @@ class PlgButtonPagebreak extends JPlugin
 			|| $user->authorise('core.edit', 'com_content')
 			|| $user->authorise('core.edit.own', 'com_content'))
 		{
-			JFactory::getDocument()->addScriptOptions('xtd-pagebreak', array('editor' => $name));
-			//$link = 'index.php?option=com_content&amp;view=article&amp;layout=pagebreak&amp;tmpl=component&amp;e_name=' . $name;
-            $link = "testView.php";
+			JFactory::getDocument()->addScriptOptions('xtd-showdiff', array('editor' => $name));
+			$link = 'index.php?option=com_content&amp;view=article&amp;layout=showdiff&amp;tmpl=component&amp;e_name=' . $name;
 
 			$button          = new JObject;
 			$button->modal   = true;
 			$button->class   = 'btn';
 			$button->link    = $link;
-			$button->text    = "ShowDiff";
+			$button->text    = JText::_('PLG_EDITORSXTD_SHOWDIFF_BUTTON_SHOWDIFF');
 			$button->name    = 'copy';
 			$button->options = "{handler: 'iframe', size: {x: 500, y: 300}}";
 
@@ -57,6 +56,3 @@ class PlgButtonPagebreak extends JPlugin
 		}
 	}
 }
-
-?>
-
