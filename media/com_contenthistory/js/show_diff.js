@@ -9,8 +9,8 @@
  */
 
 dmp = new diff_match_patch();
-text1 = "Hallo Welt Baum";
-text2 = Joomla.editors.instances['jform_articletext'].instance.getContent();;
+text1 = document.getElementById("diff_area").innerHTML;
+text2 = Joomla.editors.instances['jform_articletext'].instance.getContent();
 var innerHTML = '';
 var innerHTML2 = '';
 

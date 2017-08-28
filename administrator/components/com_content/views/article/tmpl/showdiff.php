@@ -8,6 +8,8 @@
  */
 
 defined('_JEXEC') or die;
+use \Joomla\CMS\MVC\Model\BaseModel;
+JLoader::register('ContenthistoryHelper', JPATH_ADMINISTRATOR . '/components/com_contenthistory/helpers/contenthistory.php');
 
 JHtml::_('behavior.core');
 JHtml::_('behavior.polyfill', array('event'), 'lt IE 9');
@@ -25,11 +27,28 @@ $this->eName = preg_replace('#[^A-Z0-9\-\_\[\]]#i', '', $this->eName);
 
 $document->setTitle(JText::_('COM_CONTENT_PAGEBREAK_DOC_TITLE'));
 
+$input = JFactory::getApplication()->input;
+BaseModel::addIncludePath(JPATH_ADMINISTRATOR . '/' . 'components' . '/' . 'com_contenthistory' . '/' . 'models');
+/** @var ContenthistoryModelHistory $contentHistory */
+$contentHistory= BaseModel::getInstance('History', 'ContenthistoryModel');
+$itemId = $contentHistory->getState('item_id', $input->get('id'));
+$typeId = $contentHistory->getState('type_id', 5);
+if($itemId === 0){
+	$itemId= $input->get('id');
+}
+if($typeId === 0){
+	$typeId = 1;
+}
+$contentHistory->setState('item_id', $itemId);
+$contentHistory->setState('type_id', $typeId);
+$dbobject =$contentHistory->getItems()[1];
+$object = new stdClass;
+$object = ContenthistoryHelper::decodeFields($dbobject->version_data);
 
 
 ?>
 <script type="text/javascript" src="<?=$path2?>"></script>
-<div id="diff_area" class="container-popup" style="height: auto">
+<div id="diff_area" class="container-popup" style="height: auto"><?php echo $object->introtext ?>
 </div>
 <script type="text/javascript" src="<?=$path?>"></script>
 

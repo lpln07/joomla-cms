@@ -63,7 +63,7 @@ class PlgButtonShowdiff extends JPlugin
 		{
 			JFactory::getDocument()->addScriptOptions('xtd-showdiff', array('editor' => $name));
 
-			$link = 'index.php?option=com_content&amp;view=article&amp;layout=showdiff&amp;tmpl=component&amp;e_name=' . $name;
+			$link = 'index.php?option=com_content&amp;view=article&amp;layout=showdiff&amp;tmpl=component&amp;e_name=' . $name . '&amp;id=' . $itemId;
 
 			$button          = new JObject;
 			$button->modal   = true;
