@@ -7,23 +7,23 @@
 
  Modified to show with and without HTML: Mark Dexter, Joomla Project.
  */
-jQuery(document).ready(function(){
+jQuery(document).ready(function () {
         var dmp = new diff_match_patch();
         var text1 = document.getElementById("diff_area").innerHTML;
-        var text2 = Joomla.editors.instances['jform_articletext'].instance.getContent();
+        var text2 =  parent.document.getElementById("jform_articletext_ifr").contentDocument.getElementById("tinymce").innerHTML;
 
         var innerHTML = '';
         var innerHTML2 = '';
 
         diff_text = dmp.diff_main(text1, text2);
-        diff_text.forEach( function(elem){
+        diff_text.forEach(function (elem) {
             innerHTML2 += elem;
             innerHTML += make_pretty_diff(elem);
         });
         document.getElementById("diff_area").innerHTML = innerHTML;
-    }
-    );
 
+    }
+);
 
 
 function make_pretty_diff(diff) {
