@@ -7,13 +7,17 @@
 
  Modified to show with and without HTML: Mark Dexter, Joomla Project.
  */
-jQuery(document).ready(function () {
-        var dmp = new diff_match_patch();
-        var text1 = document.getElementById("diff_area").innerHTML;
-        var text2 =  parent.document.getElementById("jform_articletext_ifr").contentDocument.getElementById("tinymce").innerHTML;
 
-        var innerHTML = '';
-        var innerHTML2 = '';
+jQuery(document).ready(function () {
+        var dmp = new diff_match_patch(),
+            text1 = document.getElementById("diff_area").innerHTML,
+            text2 = parent.document.getElementById("jform_articletext_ifr").contentDocument.getElementById("tinymce").innerHTML,
+            innerHTML = '',
+            innerHTML2 = '',
+            diff_text;
+
+        parent.window.onresize = styling_things;
+        styling_things();
 
         diff_text = dmp.diff_main(text1, text2);
         diff_text.forEach(function (elem) {
@@ -24,7 +28,6 @@ jQuery(document).ready(function () {
 
     }
 );
-
 
 function make_pretty_diff(diff) {
     var data, html, operation, pattern_amp, pattern_gt, pattern_lt, pattern_para, text;
@@ -43,4 +46,28 @@ function make_pretty_diff(diff) {
         case DIFF_EQUAL:
             return '<span>' + text + '</span>';
     }
+}
+
+/*
+/ positioning of the show-diff-popup.
+ */
+function styling_things() {
+    var popupContainer = parent.document.getElementsByClassName("mce-floatpanel")[0],
+        popupBody = popupContainer.getElementsByClassName("mce-container-body")[0],
+        popupFoot = popupContainer.getElementsByClassName("mce-foot")[0],
+        popupFootChild = popupFoot.firstChild,
+        popupFootChildBtn = popupFootChild.getElementsByClassName("mce-btn")[0],
+        editor = parent.document.getElementById("jform_articletext_ifr").parentNode,
+        editTop = editor.getBoundingClientRect().top,
+        editWidth = (editor.offsetWidth) - 30;
+
+    popupContainer.style.top = editTop + 'px';
+    popupContainer.style.left = '15px';
+    popupContainer.style.width = editWidth + 'px';
+    popupBody.style.width = editWidth + 'px';
+    popupFoot.style.width = editWidth + 'px';
+    popupFootChild.style.width = editWidth + 'px';
+    popupFootChildBtn.style.left = "unset";
+    popupFootChildBtn.style.right = 0;
+
 }
