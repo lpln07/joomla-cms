@@ -54,7 +54,19 @@ $contentHistory->setState('type_id', $typeId);
 $dbObject = $contentHistory->getItems();
 
 ?>
+<button class="diff-header btn hasTooltip"
+        title="<?php echo JText::_('COM_CONTENTHISTORY_BUTTON_COMPARE_HTML_DESC'); ?>"
+        onclick="jQuery('.diffhtml, .diffhtml-header').show(); jQuery('.difftext, .diff-header').hide()"
+        style="float: right;">
+        <span class="icon-wrench"
+              aria-hidden="true"></span> <?php echo JText::_('COM_CONTENTHISTORY_BUTTON_COMPARE_HTML'); ?></button>
 
+<button class="diffhtml-header btn hasTooltip"
+        title="<?php echo JText::_('COM_CONTENTHISTORY_BUTTON_COMPARE_TEXT_DESC'); ?>"
+        onclick="jQuery('.diffhtml, .diffhtml-header').hide(); jQuery('.difftext, .diff-header').show()"
+        style="float: right; display:none">
+        <span class="icon-pencil"
+              aria-hidden="true"></span> <?php echo JText::_('COM_CONTENTHISTORY_BUTTON_COMPARE_TEXT'); ?></button>
 <div id="diff_area" class="container-popup" style="height: auto"><?php
 	if (count($dbObject) > 1)
 	{
@@ -70,7 +82,9 @@ $dbObject = $contentHistory->getItems();
 		}
 	}
 	?>
+
 </div>
+
 
 
 
