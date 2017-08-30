@@ -13,21 +13,36 @@ jQuery(document).ready(function () {
             text1 = document.getElementById("diff_area").innerHTML,
             text2 = parent.document.getElementById("jform_articletext_ifr").contentDocument.getElementById("tinymce").innerHTML,
             innerHTML = '',
-            innerHTML2 = '',
-            diff_text;
+            innerText = '',
+            diff_text,
+            diff_html;
 
         parent.window.onresize = styling_things;
         styling_things();
 
-        diff_text = dmp.diff_main(text1, text2);
-        diff_text.forEach(function (elem) {
-            innerHTML2 += elem;
+        diff_html = dmp.diff_main(text1, text2);
+        diff_html.forEach(function (elem) {
             innerHTML += make_pretty_diff(elem);
         });
-        document.getElementById("diff_area").innerHTML = innerHTML;
+        diff_text = dmp.diff_main(clean_tags(text1), clean_tags(text2));
+        console.log(diff_text);
+        diff_text.forEach(function (elem) {
+            innerText += make_pretty_diff(elem);
+        });
+        document.getElementById("diff_area").innerHTML = '<div class="diffhtml" style="display: none">'  + innerHTML + '</div> <div class="difftext" style="display: table-cell">'+ innerText + '</div>';
 
     }
 );
+
+function clean_tags(text){
+    text_clean = new String(text);
+    var regexp = new RegExp('<.*?>');
+
+    while (regexp.test(text_clean)){
+         text_clean = text_clean.replace(regexp.exec(text_clean).toString(), '');
+    }
+    return text_clean;
+}
 
 function make_pretty_diff(diff) {
     var data, html, operation, pattern_amp, pattern_gt, pattern_lt, pattern_para, text;
