@@ -25,25 +25,26 @@ jQuery(document).ready(function () {
             innerHTML += make_pretty_diff(elem);
         });
         diff_text = dmp.diff_main(clean_tags(text1), clean_tags(text2));
-        console.log(diff_text);
         diff_text.forEach(function (elem) {
             innerText += make_pretty_diff(elem);
         });
-        document.getElementById("diff_area").innerHTML = '<div class="diffhtml" style="display: none">'  + innerHTML + '</div> <div class="difftext" style="display: table-cell">'+ innerText + '</div>';
+        document.getElementById("diff_area").innerHTML = '<div class="diff_html" style="display: none">' + innerHTML + '</div> <div class="diff_text" style="display: table-cell">' + innerText + '</div>';
 
     }
 );
 
-function clean_tags(text){
+//Deletes all HTML-Text it finds in the given text
+function clean_tags(text) {
     text_clean = new String(text);
     var regexp = new RegExp('<.*?>');
 
-    while (regexp.test(text_clean)){
-         text_clean = text_clean.replace(regexp.exec(text_clean).toString(), '');
+    while (regexp.test(text_clean)) {
+        text_clean = text_clean.replace(regexp.exec(text_clean).toString(), '');
     }
     return text_clean;
 }
 
+//Includes the Tags <ins>, <del> and <span> to mark the differences in the given text
 function make_pretty_diff(diff) {
     var data, html, operation, pattern_amp, pattern_gt, pattern_lt, pattern_para, text;
     html = [];

@@ -54,16 +54,17 @@ $contentHistory->setState('type_id', $typeId);
 $dbObject = $contentHistory->getItems();
 
 ?>
+//These Buttons toogle the shown text between one including HTML-Tags and one that doesn´t
 <button class="diff-header btn hasTooltip"
         title="<?php echo JText::_('COM_CONTENTHISTORY_BUTTON_COMPARE_HTML_DESC'); ?>"
-        onclick="jQuery('.diffhtml, .diffhtml-header').show(); jQuery('.difftext, .diff-header').hide()"
+        onclick="jQuery('.diff_html, .diffhtml-header').show(); jQuery('.diff_text, .diff-header').hide()"
         style="float: right;">
         <span class="icon-wrench"
               aria-hidden="true"></span> <?php echo JText::_('COM_CONTENTHISTORY_BUTTON_COMPARE_HTML'); ?></button>
 
 <button class="diffhtml-header btn hasTooltip"
         title="<?php echo JText::_('COM_CONTENTHISTORY_BUTTON_COMPARE_TEXT_DESC'); ?>"
-        onclick="jQuery('.diffhtml, .diffhtml-header').hide(); jQuery('.difftext, .diff-header').show()"
+        onclick="jQuery('.diff_html, .diffhtml-header').hide(); jQuery('.diff_text, .diff-header').show()"
         style="float: right; display:none">
         <span class="icon-pencil"
               aria-hidden="true"></span> <?php echo JText::_('COM_CONTENTHISTORY_BUTTON_COMPARE_TEXT'); ?></button>
