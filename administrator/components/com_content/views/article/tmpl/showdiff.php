@@ -34,9 +34,10 @@ $document->setTitle(JText::_('COM_CONTENT_PAGEBREAK_DOC_TITLE'));
 $input = JFactory::getApplication()->input;
 BaseModel::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_contenthistory/models');
 /** @var ContenthistoryModelHistory $contentHistory */
-$contentHistory = BaseModel::getInstance('History', 'ContenthistoryModel');
-$itemId         = $contentHistory->getState('item_id', $input->get('id'));
-$typeId         = $contentHistory->getState('type_id', 5);
+$contentHistory  = BaseModel::getInstance('History', 'ContenthistoryModel');
+$itemId          = $contentHistory->getState('item_id', $input->get('id'));
+$typeId          = $contentHistory->getState('type_id', 5);
+$previousVersion = 1;
 
 if ($itemId === 0)
 {
@@ -50,12 +51,25 @@ if ($typeId === 0)
 
 $contentHistory->setState('item_id', $itemId);
 $contentHistory->setState('type_id', $typeId);
-$dbObject = $contentHistory->getItems()[1];
-$object   = ContenthistoryHelper::decodeFields($dbObject->version_data);
+$dbObject = $contentHistory->getItems();
 
 ?>
 
-<div id="diff_area" class="container-popup" style="height: auto"><?php echo $object->introtext ?>
+<div id="diff_area" class="container-popup" style="height: auto"><?php
+	if (count($dbObject) > 1)
+	{
+		$object = ContenthistoryHelper::decodeFields($dbObject[$previousVersion]->version_data);
+		if ($object->fulltext != null)
+		{
+			echo $object->introtext . '<hr id="system-readmore" />' . $object->fulltext;
+
+		}
+		else
+		{
+			echo $object->introtext;
+		}
+	}
+	?>
 </div>
 
 
